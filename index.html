@@ -114,6 +114,38 @@
             text-decoration: none;
         }
 
+        .resume-download {
+            margin-top: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
         .section {
             background: white;
             margin: 2rem 0;
@@ -405,6 +437,12 @@
                         <span>💻</span>
                         <a href="https://github.com/CharanSrini" target="_blank">github.com/CharanSrini</a>
                     </div>
+                </div>
+                <div class="resume-download">
+                    <a href="./Charan_Srinivasan_Resume.pdf" download="Charan_Srinivasan_Resume.pdf" class="download-btn">
+                        <span>📄</span>
+                        Download Resume
+                    </a>
                 </div>
             </div>
         </section>
