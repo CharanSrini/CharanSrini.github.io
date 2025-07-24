@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakSafe - Charan Srinivasan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e91e63;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: #e91e63;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #9c27b0;
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .project-hero {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .project-hero h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-hero .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            border-radius: 2px;
+        }
+
+        .awards-section {
+            background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+            color: #333;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .awards-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .award-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .award-item {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #e91e63;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .architecture-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: scale(1.05);
+        }
+
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .flow-step h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .flow-step p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .security-card {
+            background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .security-card h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .security-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-hero {
+                padding: 2rem;
+            }
+
+            .project-hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .feature-grid,
+            .architecture-flow,
+            .security-features {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                justify-content: center;
+            }
+
+            .award-list {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .flow-step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Charan Srinivasan</a>
+            <a href="index.html#projects" class="back-btn">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="project-hero">
+                <h1>SpeakSafe</h1>
+                <p class="subtitle">Real-Time AI-Powered Voice Moderation for Discord</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Discord.js</span>
+                    <span class="tech-tag">Wit.AI API</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Google Cloud</span>
+                    <span class="tech-tag">Hugging Face</span>
+                    <span class="tech-tag">Pysentimiento</span>
+                </div>
+            </div>
+
+            <div class="awards-section">
+                <h3>🏆 Competition Awards</h3>
+                <div class="award-list">
+                    <div class="award-item">Best Use of MongoDB</div>
+                    <div class="award-item">Best Design</div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Project Overview</h2>
+                <p>SpeakSafe is an innovative real-time hate speech moderation system designed specifically for Discord voice channels. By combining advanced speech recognition, machine learning, and automated moderation, this project creates safer digital communication spaces through intelligent content filtering and immediate response mechanisms.</p>
+                
+                <div class="highlight-box">
+                    <h3>🎯 Mission</h3>
+                    <p>Ensuring safe and respectful communication in Discord voice channels through cutting-edge AI technology and real-time content moderation.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>System Architecture</h2>
+                <p>SpeakSafe employs a sophisticated multi-layered architecture that processes voice data in real-time:</p>
+                
+                <div class="architecture-flow">
+                    <div class="flow-step">
+                        <h4>🎤 Voice Capture</h4>
+                        <p>Discord.js bot captures voice chat audio streams</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>🔊 Speech-to-Text</h4>
+                        <p>Wit.AI API transcribes audio to text in real-time</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>📝 Blacklist Check</h4>
+                        <p>Custom blacklist filtering using MongoDB storage</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>🤖 AI Analysis</h4>
+                        <p>Pysentimiento model analyzes content for hate speech</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>⚡ Auto-Moderation</h4>
+                        <p>Automatic removal of users with flagged content</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Core Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🎧 Real-Time Voice Processing</h3>
+                        <p>Continuous monitoring and transcription of Discord voice channels using advanced speech recognition technology with minimal latency.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🧠 Dual-Layer Filtering</h3>
+                        <p>Combines user-defined blacklists with state-of-the-art machine learning models for comprehensive hate speech detection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚙️ Custom Management Interface</h3>
+                        <p>Flask-based web interface for administrators to manage blacklists, configure settings, and monitor system performance.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>☁️ Cloud-Powered AI</h3>
+                        <p>Google Cloud-hosted Pysentimiento hate speech detection model from Hugging Face for accurate content analysis.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🚨 Instant Response</h3>
+                        <p>Automatic removal of users producing flagged content, ensuring immediate protection for community members.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 MongoDB Integration</h3>
+                        <p>Efficient data storage and retrieval system for blacklists, user data, and moderation logs with optimized performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Technical Implementation</h2>
+                <p>The system leverages cutting-edge technologies to deliver reliable and efficient moderation:</p>
+                
+                <ul style="margin: 2rem 0; color: #666;">
+                    <li><strong>Discord.js Bot Framework:</strong> Robust integration with Discord's voice API for seamless audio capture and user management</li>
+                    <li><strong>Wit.AI Speech Recognition:</strong> High-accuracy voice-to-text conversion with support for multiple languages and accents</li>
+                    <li><strong>Machine Learning Pipeline:</strong> Pysentimiento model deployment on Google Cloud for scalable hate speech detection</li>
+                    <li><strong>Database Optimization:</strong> MongoDB collections optimized for fast blacklist queries and efficient data retrieval</li>
+                    <li><strong>Web Interface:</strong> Responsive Flask application with intuitive controls for system administration</li>
+                    <li><strong>Real-time Processing:</strong> Event-driven architecture ensuring minimal delay between speech and moderation action</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Security & Safety Features</h2>
+                <div class="security-features">
+                    <div class="security-card">
+                        <h4>🔒 Privacy Protection</h4>
+                        <p>Audio data is processed in real-time without permanent storage, ensuring user privacy and compliance.</p>
+                    </div>
+                    <div class="security-card">
+                        <h4>⚡ Immediate Action</h4>
+                        <p>Sub-second response time for content flagging and user removal, preventing harmful content spread.</p>
+                    </div>
+                    <div class="security-card">
+                        <h4>🎯 Accurate Detection</h4>
+                        <p>Advanced ML model reduces false positives while maintaining high sensitivity to harmful content.</p>
+                    </div>
+                    <div class="security-card">
+                        <h4>🛡️ Multi-Layer Defense</h4>
+                        <p>Combination of rule-based and AI-powered filtering for comprehensive protection coverage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Award Recognition</h2>
+                <p>SpeakSafe's innovative approach to voice moderation and technical excellence earned recognition in multiple categories:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🏆 Best Use of MongoDB</h3>
+                        <p>Recognized for innovative database architecture, efficient query optimization, and seamless integration of MongoDB for real-time blacklist management and moderation logging.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎨 Best Design</h3>
+                        <p>Honored for exceptional user interface design, intuitive system architecture, and thoughtful user experience across both the Discord bot and web management interface.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Impact & Results</h2>
+                <p>SpeakSafe demonstrates the potential for AI-powered moderation to create safer online communities. The project achieved:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🚀 Real-Time Performance</h3>
+                        <p>Successfully deployed system with sub-second response times for voice transcription and content analysis.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Technical Innovation</h3>
+                        <p>Integrated multiple cutting-edge APIs and services into a cohesive, reliable moderation platform.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>👥 Community Safety</h3>
+                        <p>Created a scalable solution for maintaining respectful communication in digital voice environments.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🏅 Industry Recognition</h3>
+                        <p>Received dual awards for technical excellence and design innovation in competitive evaluation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

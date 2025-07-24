@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convo-Crafter - Charan Srinivasan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .project-hero {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .project-hero h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-hero .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .challenge, .solution {
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .challenge {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+        }
+
+        .solution {
+            background: #e8f5e8;
+            border-left: 5px solid #4caf50;
+        }
+
+        .challenge h3, .solution h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .challenge h3 {
+            color: #f57c00;
+        }
+
+        .solution h3 {
+            color: #2e7d32;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-hero {
+                padding: 2rem;
+            }
+
+            .project-hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-solution {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Charan Srinivasan</a>
+            <a href="index.html#projects" class="back-btn">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="project-hero">
+                <h1>Convo-Crafter</h1>
+                <p class="subtitle">Intelligent Slack Bot for Meeting Management</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">Slack API</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Agile Development</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Project Overview</h2>
+                <p>Convo-Crafter is a sophisticated Slack bot designed to revolutionize meeting management for Boeing teams. Built with TypeScript and the Slack API, this intelligent assistant streamlines the entire meeting lifecycle from scheduling to follow-up, ensuring teams stay organized and accountable.</p>
+                
+                <div class="highlight-box">
+                    <h3>🎯 Impact</h3>
+                    <p>Collaborated directly with Boeing managers through weekly standups and delivered comprehensive final presentations showcasing the bot's capabilities and business value.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📅 Smart Scheduling</h3>
+                        <p>Automated meeting creation and scheduling with intelligent conflict detection and optimal time slot suggestions for team members.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📋 Agenda Management</h3>
+                        <p>Dynamic agenda creation, editing, and sharing capabilities that keep meetings focused and productive.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>✅ Action Item Tracking</h3>
+                        <p>Seamless assignment and tracking of action items with personalized notifications and deadline management.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎮 Flow Control</h3>
+                        <p>Discreet discussion management tools that help moderators maintain meeting focus and time management.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔔 Automated Reminders</h3>
+                        <p>Post-meeting follow-up system with customized reminders for action items and upcoming deadlines.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Accountability Dashboard</h3>
+                        <p>Comprehensive tracking system that improves team accountability and follow-up efficiency.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Development Process</h2>
+                <div class="challenge-solution">
+                    <div class="challenge">
+                        <h3>🎯 Challenge</h3>
+                        <p>Boeing teams were struggling with inefficient meeting management, lack of follow-through on action items, and difficulty maintaining accountability across distributed teams.</p>
+                        <ul>
+                            <li>Manual meeting scheduling conflicts</li>
+                            <li>Lost action items and follow-ups</li>
+                            <li>Inconsistent meeting documentation</li>
+                            <li>Poor visibility into team progress</li>
+                        </ul>
+                    </div>
+                    <div class="solution">
+                        <h3>💡 Solution</h3>
+                        <p>Developed an integrated Slack bot that automates the entire meeting lifecycle while providing intelligent insights and accountability features.</p>
+                        <ul>
+                            <li>Automated scheduling with conflict resolution</li>
+                            <li>Persistent action item tracking</li>
+                            <li>Standardized meeting documentation</li>
+                            <li>Real-time progress visibility</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Technical Implementation</h2>
+                <p>The bot was architected using modern TypeScript practices with robust error handling and scalable design patterns. Key technical achievements include:</p>
+                
+                <ul style="margin: 2rem 0; color: #666;">
+                    <li><strong>Slack API Integration:</strong> Comprehensive use of Slack's Events API, Web API, and Interactive Components</li>
+                    <li><strong>Real-time Processing:</strong> Event-driven architecture for instant response to user interactions</li>
+                    <li><strong>Data Persistence:</strong> Efficient storage and retrieval of meeting data, action items, and user preferences</li>
+                    <li><strong>User Experience:</strong> Intuitive slash commands and interactive message components</li>
+                    <li><strong>Scalability:</strong> Modular design supporting multiple teams and concurrent meetings</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h3>🚀 Professional Development</h3>
+                    <p>This project provided invaluable experience working in a corporate environment with direct stakeholder engagement, regular progress presentations, and real-world deployment constraints.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Results & Impact</h2>
+                <p>The Convo-Crafter bot successfully demonstrated significant improvements in meeting efficiency and team accountability. Through regular collaboration with Boeing managers and iterative development based on user feedback, the project achieved:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📈 Improved Efficiency</h3>
+                        <p>Streamlined meeting processes reduced setup time and increased focus on productive discussions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Enhanced Accountability</h3>
+                        <p>Automated tracking and reminders ensured follow-through on action items and commitments.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>👥 Stakeholder Satisfaction</h3>
+                        <p>Regular presentations to Boeing managers demonstrated clear value and adoption potential.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

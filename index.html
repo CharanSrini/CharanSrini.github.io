@@ -308,6 +308,10 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .project-card:hover {
@@ -341,6 +345,20 @@
             border-left: 4px solid #4caf50;
             font-weight: 500;
             color: #2e7d32;
+        }
+
+        .view-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .view-more:hover {
+            color: #764ba2;
         }
 
         footer {
@@ -551,7 +569,7 @@
             <div class="container">
                 <h2>Featured Projects</h2>
                 <div class="projects-grid">
-                    <div class="project-card">
+                    <a href="convo-crafter.html" class="project-card">
                         <div class="project-header">
                             <h3>Convo-Crafter</h3>
                         </div>
@@ -560,9 +578,12 @@
                             <div class="project-achievement">
                                 Collaborated with Boeing managers through weekly standups and final presentations
                             </div>
+                            <div class="view-more">
+                                View Details →
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-card">
+                    </a>
+                    <a href="shark-detection.html" class="project-card">
                         <div class="project-header">
                             <h3>Shark Detection Model</h3>
                         </div>
@@ -571,9 +592,12 @@
                             <div class="project-achievement">
                                 Achieved 72% accuracy improvement from baseline 41%
                             </div>
+                            <div class="view-more">
+                                View Details →
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-card">
+                    </a>
+                    <a href="speaksafe.html" class="project-card">
                         <div class="project-header">
                             <h3>SpeakSafe</h3>
                         </div>
@@ -582,8 +606,11 @@
                             <div class="project-achievement">
                                 Won "Best Use of MongoDB" and "Best Design" awards
                             </div>
+                            <div class="view-more">
+                                View Details →
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>

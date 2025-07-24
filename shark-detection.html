@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Detection Model - Charan Srinivasan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2196f3;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: #2196f3;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1976d2;
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .project-hero {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .project-hero h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #2196f3, #21cbf3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-hero .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #2196f3, #21cbf3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #2196f3, #21cbf3);
+            border-radius: 2px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .metric-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #2196f3;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(135deg, #2196f3, #21cbf3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #2196f3;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-item h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-item p {
+            color: #666;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-hero {
+                padding: 2rem;
+            }
+
+            .project-hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .feature-grid,
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                justify-content: center;
+            }
+
+            .process-timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Charan Srinivasan</a>
+            <a href="index.html#projects" class="back-btn">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="project-hero">
+                <h1>Shark Detection Model</h1>
+                <p class="subtitle">Advanced Computer Vision System for Marine Species Classification</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Vision Transformer (ViT)</span>
+                    <span class="tech-tag">PyTorch</span>
+                    <span class="tech-tag">Keras</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">CronJob</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Project Overview</h2>
+                <p>An advanced machine learning system that leverages cutting-edge Vision Transformer (ViT) technology to accurately identify shark species from images. This project involved migrating legacy R-based scripts to a modern Python ecosystem while implementing state-of-the-art deep learning techniques for marine biodiversity research.</p>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>72%</h3>
+                        <p>Final Accuracy</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>31%</h3>
+                        <p>Improvement</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>41%</h3>
+                        <p>Baseline</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>🎯 Achievement</h3>
+                    <p>Successfully deployed the model with a remarkable accuracy improvement from 41% to 72%, demonstrating the power of modern transformer architectures in marine species classification.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Technical Architecture</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🤖 Vision Transformer (ViT)</h3>
+                        <p>Implemented state-of-the-art Vision Transformer model with fine-tuning capabilities, leveraging pre-trained weights for enhanced performance on marine species classification.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🗄️ Data Pipeline</h3>
+                        <p>Built robust PostgreSQL database system to consolidate validation data from multiple social media sources, ensuring comprehensive training datasets.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Migration & Optimization</h3>
+                        <p>Successfully migrated R-based training scripts to Python using Keras and TensorFlow, implementing modern ML practices and optimization techniques.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Dynamic Architecture</h3>
+                        <p>Developed adaptive output layers that dynamically adjust based on genus and species classifications, following published research methodology.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Smart Training</h3>
+                        <p>Implemented early stopping, adaptive learning rates using Rectified Adam optimizer, and sophisticated data augmentation techniques.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚖️ Class Balancing</h3>
+                        <p>Applied strict class balancing based on genus and species thresholds to ensure fair representation across all shark classifications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Development Process</h2>
+                <div class="process-timeline">
+                    <div class="timeline-item">
+                        <h4>Data Collection & Consolidation</h4>
+                        <p>Aggregated validation data from multiple social media platforms and external sources, creating a comprehensive PostgreSQL database for training and validation.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Legacy System Migration</h4>
+                        <p>Converted existing R-based training scripts to Python, leveraging Keras and TensorFlow for improved performance and maintainability.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Model Architecture Design</h4>
+                        <p>Implemented Vision Transformer with custom fine-tuning layers, dynamic output classification, and advanced data augmentation pipelines.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Training Optimization</h4>
+                        <p>Applied cutting-edge training techniques including Rectified Adam optimization, early stopping mechanisms, and adaptive learning rate scheduling.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Automated Deployment</h4>
+                        <p>Established CronJob scheduling for automated data consolidation and model training, ensuring continuous improvement and up-to-date classifications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Key Innovations</h2>
+                <p>This project incorporated several cutting-edge machine learning techniques and architectural innovations:</p>
+                
+                <ul style="margin: 2rem 0; color: #666;">
+                    <li><strong>Vision Transformer Implementation:</strong> Leveraged transformer architecture for image classification, moving beyond traditional CNNs</li>
+                    <li><strong>Dynamic Output Layers:</strong> Adaptive classification system that adjusts based on taxonomic hierarchy (genus/species)</li>
+                    <li><strong>Multi-Source Data Integration:</strong> Consolidated diverse data sources into unified training pipeline</li>
+                    <li><strong>Advanced Optimization:</strong> Rectified Adam optimizer with adaptive learning rates for optimal convergence</li>
+                    <li><strong>Automated ML Pipeline:</strong> End-to-end automation from data collection to model deployment</li>
+                    <li><strong>Research-Based Methodology:</strong> Implementation following published academic research standards</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Technical Challenges & Solutions</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>⚡ Performance Optimization</h3>
+                        <p>Overcame computational constraints through efficient batch processing, memory optimization, and strategic use of pre-trained weights.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Data Quality</h3>
+                        <p>Addressed inconsistent data quality from social media sources through robust preprocessing, validation checks, and quality filtering.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Class Imbalance</h3>
+                        <p>Implemented sophisticated class balancing techniques to ensure fair representation across different shark species and genera.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 System Migration</h3>
+                        <p>Successfully transitioned from R to Python ecosystem while maintaining research integrity and improving system performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Results & Impact</h2>
+                <p>The Shark Detection Model achieved significant improvements in marine species classification accuracy, demonstrating the effectiveness of modern deep learning approaches in biodiversity research. Key outcomes include:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📈 Accuracy Improvement</h3>
+                        <p>Achieved 72% classification accuracy, representing a 31-point improvement over the baseline 41% accuracy.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🚀 Modern Architecture</h3>
+                        <p>Successfully implemented Vision Transformer technology, showcasing expertise in cutting-edge machine learning techniques.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Automated Pipeline</h3>
+                        <p>Established fully automated training and deployment system with continuous data integration capabilities.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🌊 Research Impact</h3>
+                        <p>Contributed to marine biodiversity research with a robust, scalable system for shark species identification and monitoring.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+                    
